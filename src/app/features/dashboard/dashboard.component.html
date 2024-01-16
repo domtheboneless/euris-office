@@ -1,0 +1,12 @@
+<div class="container container_custom  mt-5">
+  <h2>Store disponibili</h2>
+  <div class="mt-5">
+    <ng-container *ngIf="itemList; else noItem">
+      <app-list [listType]="listType" [itemList]="itemList"></app-list>
+    </ng-container>
+    <ng-template #noItem>
+      <h5 *ngIf="loading$">Ricerca degli store...</h5>
+      <h5 *ngIf="!loading$">Nessuno store trovato.</h5>
+    </ng-template>
+  </div>
+</div>

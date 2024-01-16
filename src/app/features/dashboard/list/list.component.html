@@ -1,0 +1,21 @@
+<div class="d-flex w-100 justify-content-between">
+  <button class="btn btn-success" (click)="addItem()" [disabled]="listType == 'store'">Aggiungi elemento</button>
+  <button class="btn" (click)="layoutStyle()"> <i class="material-icons">{{grid ? 'list' : 'grid_view'}}</i>
+  </button>
+</div>
+
+<div class="d-flex flex-wrap col-12 w-100 mt-5 gap-3">
+  <div *ngFor="let item of itemList" [ngClass]="grid ? 'grid' : 'panel' "
+    class="mt-3 custom_height_30 width_handler custom_card_bg position-relative">
+    <div class="d-flex justify-content-between align-items-baseline">
+      <h2>{{item.data.name || item.data.title }}</h2>
+      <button (click)="deleteItem(item)" *ngIf="listType == 'product'" class="btn delete-button-card"><i
+          class="material-icons">delete</i></button>
+    </div>
+
+    <small>{{item.data.category }}</small>
+    <button class="btn welcome_btn_card position-absolute bottom-0 start-0 w-100"
+      (click)="navigateTo(item)">Dettaglio</button>
+
+  </div>
+</div>

@@ -1,0 +1,50 @@
+<h3 class="text-center mt-5 mb-5">Aggiungi nuovo elemento</h3>
+<div class="container w-rem25">
+  <form [formGroup]="itemForm" class="mb-5" (ngSubmit)="onSubmit()">
+    <mat-form-field class="w-100 mb-2" appearance="outline">
+      <mat-label>Titolo</mat-label>
+      <input matInput placeholder="Title*" formControlName="title">
+      <mat-error *ngIf="itemForm.get('title').hasError('required')">Titolo obbligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100 mb-2" appearance="outline">
+      <mat-label>Categoria</mat-label>
+      <input matInput placeholder="Category*" formControlName="category">
+      <mat-error *ngIf="itemForm.get('category').hasError('required')">Categoria obbligatoria</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100 mb-2" appearance="outline">
+      <mat-label>Descrizione</mat-label>
+      <input matInput placeholder="Description" formControlName="description">
+    </mat-form-field>
+
+    <mat-form-field class="w-100 mb-2" appearance="outline">
+      <mat-label>Prezzo</mat-label>
+      <input matInput type="number" placeholder="Price*" formControlName="price">
+      <mat-error *ngIf="itemForm.get('price').hasError('required')">Prezzo obbligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100 mb-2" appearance="outline">
+      <mat-label>Employee</mat-label>
+      <input matInput placeholder="Employee" formControlName="employee">
+    </mat-form-field>
+
+    <ng-container formArrayName="reviews">
+      <div *ngFor="let control of reviewArray.controls; let i = index">
+        <mat-form-field class="w-100 mb-2 d-flex" appearance="outline">
+          <mat-label>Review</mat-label>
+          <input matInput placeholder="review" [formControl]="getReviewControl(i)">
+          <mat-icon matSuffix (click)="removeReview(i)">delete</mat-icon>
+        </mat-form-field>
+      </div>
+    </ng-container>
+    <div class="d-flex justify-content-end mb-5">
+      <button type="button" class="btn btn-sm btn-secondary" (click)="addReview()">Aggiungi recensione</button>
+    </div>
+
+    <div class="d-flex w-100 justify-content-center">
+      <button type="button" class="btn me-3" (click)="cancel()">Cancel</button>
+      <button class="btn btn-success" [disabled]="!itemForm.dirty || itemForm.invalid" type="submit">Submit</button>
+    </div>
+  </form>
+</div>
