@@ -2,7 +2,7 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.0.
 
-Store Detail Component
+## Store Detail Component
 Questo componente Angular gestisce la visualizzazione dei dettagli di un negozio o di un prodotto basato sui parametri forniti nell'URL. Il componente fa uso di Angular ActivatedRoute per ottenere i parametri dall'URL e del servizio StoreService per recuperare i dati necessari dal backend.
 
 In questa sezione, il componente recupera il storeID dai parametri dell'URL utilizzando ActivatedRoute. Successivamente, verifica se è fornito anche un productID nei parametri. Se presente, il componente carica i dettagli del prodotto tramite una chiamata al servizio getProductById e visualizza i dettagli del prodotto.
