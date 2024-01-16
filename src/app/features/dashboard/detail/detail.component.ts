@@ -35,7 +35,7 @@ export class DetailComponent implements OnInit {
   ngOnInit() {
     this.storeID = this._activeRoute.snapshot.params['storeID'];
     //check if it is a product or a store
-    if (this._activeRoute.snapshot.params['productID']) {
+    if ('productID' in this._activeRoute.snapshot.params) {
       this.detailType = 'product';
       this.productID = this._activeRoute.snapshot.params['productID'];
 
@@ -44,20 +44,22 @@ export class DetailComponent implements OnInit {
         .subscribe((product: Product) => {
           this.itemDetail = product;
         });
-    } else if (this._activeRoute.snapshot.params['storeID']) {
+    } else if ('storeID' in this._activeRoute.snapshot.params) {
       this.detailType = 'store';
       this.listType = 'product';
 
+      const products$ = this._storeService.getProductsByStore(this.storeID);
+      const store$ = this._storeService.getStoreById(this.storeID);
+      const charts$ = this._storeService.getChartByStore(this.storeID);
+
       //merge multiple call
-      forkJoin([
-        this._storeService.getProductsByStore(this.storeID),
-        this._storeService.getStoreById(this.storeID),
-        this._storeService.getChartByStore(this.storeID),
-      ]).subscribe(([products, store, charts]) => {
-        this.itemList = [...products];
-        this.itemDetail = store;
-        this.storeCharts = [...charts];
-      });
+      forkJoin([products$, store$, charts$]).subscribe(
+        ([products, store, charts]) => {
+          this.itemList = [...products];
+          this.itemDetail = store;
+          this.storeCharts = [...charts];
+        }
+      );
     }
   }
 

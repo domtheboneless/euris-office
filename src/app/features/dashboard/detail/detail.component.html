@@ -4,23 +4,32 @@
         class="material-icons">arrow_back_ios</i>
       Indietro</p>
     <div class="d-flex flex-wrap  justify-content-between ">
-      <div class="col-8 detail_info">
-        <h1> {{itemDetail.title || itemDetail.name}}</h1>
-        <p class="mb-0">{{itemDetail.category | titlecase}}</p>
-        <div class="d-flex">
-          <b class="mb-0 me-1">Owner: </b>
-          <ng-container *ngIf="itemDetail.employees; else employee">
-            <ul *ngIf="itemDetail.employees && itemDetail.employees.length > 0">
-              <li *ngFor="let employee of itemDetail.employees; let last = last">{{ employee |
-                titlecase}}
-              </li>
-            </ul>
-          </ng-container>
-          <ng-template #employee>
-            <p>{{itemDetail.employee | titlecase}}</p>
+      <div class="col-8 detail_info d-flex flex-column justify-content-between">
+        <div class="title">
+          <h1> {{itemDetail.title || itemDetail.name}}</h1>
+          <p class=" mb-0">{{itemDetail.category | titlecase}}</p>
+          <div class="d-flex">
+            <b class="mb-0 me-1">Owner: </b>
+            <ng-container *ngIf="itemDetail.employees; else employee">
+              <ul *ngIf="itemDetail.employees && itemDetail.employees.length > 0">
+                <li *ngFor="let employee of itemDetail.employees; let last = last">{{ employee |
+                  titlecase}}
+                </li>
+              </ul>
+            </ng-container>
+            <ng-template #employee>
+              <p>{{itemDetail.employee | titlecase}}</p>
 
-          </ng-template>
+            </ng-template>
+          </div>
         </div>
+        <div *ngIf="!productID">
+          <h5>Gallery</h5>
+          <img class="w-50 border-20 img-fluid"
+            src="https://citynews-veneziatoday.stgy.ovh/~media/horizontal-mid/48727478573673/pasticceria-angelica-mestre.jpg"
+            alt="Pictures pasticceria">
+        </div>
+
         <p class="mt-5">
           {{itemDetail.description}}
         </p>
@@ -33,7 +42,7 @@
       </div>
       <ng-template #charts>
         <div class="col-4 mb-5">
-          <h3>Charts</h3>
+          <h3>Categorie</h3>
           <app-charts [storeCharts]="storeCharts"></app-charts>
         </div>
       </ng-template>
