@@ -5,27 +5,34 @@
       Indietro</p>
     <div class="d-flex flex-wrap  justify-content-between ">
       <div class="col-8 detail_info d-flex flex-column justify-content-between">
-        <div class="title">
-          <h1> {{itemDetail.title || itemDetail.name}}</h1>
-          <p class=" mb-0">{{itemDetail.category | titlecase}}</p>
+        <div class="title mb-4">
           <div class="d-flex">
-            <b class="mb-0 me-1">Owner: </b>
-            <ng-container *ngIf="itemDetail.employees; else employee">
-              <ul *ngIf="itemDetail.employees && itemDetail.employees.length > 0">
-                <li *ngFor="let employee of itemDetail.employees; let last = last">{{ employee |
-                  titlecase}}
-                </li>
-              </ul>
-            </ng-container>
-            <ng-template #employee>
-              <p>{{itemDetail.employee | titlecase}}</p>
+            <img class="border-20 me-4" *ngIf="!productID" width="100"
+              src="https://img.freepik.com/premium-vector/cake-bakery-logo-design-inspiration-vector-template-bakery-logo_279597-646.jpg"
+              alt="">
 
-            </ng-template>
+            <div class="">
+              <h1> {{itemDetail.title || itemDetail.name}}</h1>
+              <p class=" mb-0">{{itemDetail.category | titlecase}}</p>
+              <div class="d-flex">
+                <b class="mb-0 me-1">Owner: </b>
+                <ng-container *ngIf="itemDetail.employees; else employee">
+                  <ul *ngIf="itemDetail.employees && itemDetail.employees.length > 0">
+                    <li *ngFor="let employee of itemDetail.employees; let last = last">{{ employee |
+                      titlecase}}
+                    </li>
+                  </ul>
+                </ng-container>
+                <ng-template #employee>
+                  <p>{{itemDetail.employee | titlecase}}</p>
+                </ng-template>
+              </div>
+            </div>
           </div>
         </div>
         <div *ngIf="!productID">
           <h5>Gallery</h5>
-          <img class="w-50 border-20 img-fluid"
+          <img class="w-50 border-20 img-fluid gallery"
             src="https://citynews-veneziatoday.stgy.ovh/~media/horizontal-mid/48727478573673/pasticceria-angelica-mestre.jpg"
             alt="Pictures pasticceria">
         </div>
@@ -54,11 +61,15 @@
     <ng-container *ngIf="detailType === 'product'">
       <div class="mt-5">
         <h3>Recensioni degli utenti</h3>
+        <p *ngIf="itemDetail.reviews.length == 0">Nessuna recensione per questo articolo.</p>
         <div class="col-12">
-          <div *ngFor="let review of itemDetail.reviews" class="d-flex justify-content-between review-card">
-            <p class="mb-0">{{review}}</p>
-            <i class="material-icons">star_rate</i>
-          </div>
+          <ng-container *ngFor="let review of itemDetail.reviews">
+            <div class="d-flex justify-content-between review-card" *ngIf="review.length > 0">
+              <p class="mb-0">{{review}}</p>
+              <i class="material-icons">star_rate</i>
+            </div>
+          </ng-container>
+
         </div>
       </div>
     </ng-container>

@@ -33,6 +33,7 @@ export class DetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this._coreService.showLoading();
     this.storeID = this._activeRoute.snapshot.params['storeID'];
     //check if it is a product or a store
     if ('productID' in this._activeRoute.snapshot.params) {
@@ -58,6 +59,7 @@ export class DetailComponent implements OnInit {
           this.itemList = [...products];
           this.itemDetail = store;
           this.storeCharts = [...charts];
+          this._coreService.hideLoading();
         }
       );
     }

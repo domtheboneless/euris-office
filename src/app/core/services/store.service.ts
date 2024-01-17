@@ -33,22 +33,14 @@ export class StoreService {
   }
 
   getStoreById(id: string): Observable<Store> {
-    this._coreService.showLoading();
     return this._http.get<Store>(this._URI + `stores/${id}`);
   }
 
   getProductsByStore(storeId: string): Observable<Product[]> {
-    return this._http
-      .get<Product[]>(this._URI + `stores/${storeId}/products`)
-      .pipe(
-        finalize(() => {
-          this._coreService.hideLoading();
-        })
-      );
+    return this._http.get<Product[]>(this._URI + `stores/${storeId}/products`);
   }
 
   getChartByStore(storeID: string): Observable<Stats[]> {
-    this._coreService.showLoading();
     return this._http.get<Stats[]>(
       this._URI + `stores/${storeID}/stats/categories`
     );
